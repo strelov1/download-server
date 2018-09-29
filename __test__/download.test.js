@@ -4,7 +4,7 @@ const download = require('../src/download');
 
 const downloadFile = `${__dirname}/downloadFile.tmp`;
 const downloadMockFile = `${__dirname}/download.mock.file.txt`;
-const existMockFile = `${__dirname}/mock.file.txt`;
+const existMockFile = `${__dirname}/file.mock.txt`;
 
 const reponseStreamMock = (filename) => {
 	const fleStream = fs.createWriteStream(filename);
@@ -27,29 +27,32 @@ describe('Client headers', () => {
 			fs.unlinkSync(downloadFile);
 		})
 		.catch((e) => {
-			expect(e).toBe(undefined);
+			expect(e).toBe(null);
 			fs.unlinkSync(downloadFile);
 		});
 });
 
 test('Client download', async () => {
-	const responseStream = reponseStreamMock(downloadFile);
+	const responseStream = reponseStreamMock(downloadMockFile);
 
 	download(
-		'https://raw.githubusercontent.com/strelov1/download-server/master/__test__/mock.file.txt',
+		'https://raw.githubusercontent.com/strelov1/download-server/master/__test__/file.mock.txt',
 		{},
 		responseStream
 	)
 		.then(() => {
-			fs.readFile(existMockFile, 'utf8', (errMockFile, contentsMockFile) => {
-				fs.readFile(downloadMockFile, 'utf8', (errDownloadFile, contentsDownloadFile) => {
-					expect(contentsMockFile).toEqual(contentsDownloadFile);
+			fs.readFile(downloadMockFile, 'utf8', (errDownloadFile, contentsDownloadFile) => {
+				expect(errDownloadFile).toBe(null);
+
+				fs.readFile(existMockFile, 'utf8', (errMockFile, contentsExistMockFile) => {
+					expect(errMockFile).toBe(null);
+					expect(contentsExistMockFile).toEqual(contentsDownloadFile);
 					fs.unlinkSync(downloadMockFile);
 				});
 			});
 		})
 		.catch((e) => {
-			expect(e).toBe(undefined);
+			expect(e).toBe(null);
 			fs.unlinkSync(downloadMockFile);
 		});
 });

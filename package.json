@@ -14,7 +14,7 @@
 		"prettier": "prettier --config .prettierrc --write ./src/**/*.js",
 		"lint": "eslint --fix ./src"
 	},
-	"pre-commit": [ "prettier", "lint" ],
+	"pre-commit": [ "test", "prettier", "lint" ],
 	"devDependencies": {
 		"eslint": "^5.6.1",
 		"eslint-config-airbnb": "^17.1.0",

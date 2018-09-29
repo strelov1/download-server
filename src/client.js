@@ -40,8 +40,8 @@ class Client {
 
 	/**
      * Send POST request
-	 * @param {string} requestUrl 
-	 * @param {object} data 
+     * @param {string} requestUrl
+     * @param {object} data
      */
 	post(requestUrl, data) {
 		return this.request(requestUrl, { method: 'POST', data });
@@ -49,9 +49,9 @@ class Client {
 
 	/**
      * Send PUT request
-	 * @param {string} requestUrl 
-	 * @param {object} data 
-	 */
+     * @param {string} requestUrl
+     * @param {object} data
+     */
 	put(requestUrl, data) {
 		return this.request(requestUrl, { method: 'PUT', data });
 	}
@@ -82,7 +82,7 @@ class Client {
 
 	/**
      * Create http client
-     * @param {string} requestUrl 
+     * @param {string} requestUrl
      */
 	static createClient(requestUrl) {
 		if (requestUrl.indexOf('https://') === 0) {
@@ -96,8 +96,8 @@ class Client {
 
 	/**
      * Prepare headers data
-     * @param {string} requestUrl 
-     * @param {object} requestOptions 
+     * @param {string} requestUrl
+     * @param {object} requestOptions
      */
 	prepareHears(requestUrl, requestOptions) {
 		// Set Headers @TODO HEADERS
@@ -122,7 +122,7 @@ class Client {
 
 	/**
      * Check follow location
-     * @param {number} statusCode 
+     * @param {number} statusCode
      */
 	isFollowLocation(statusCode) {
 		return (
@@ -134,8 +134,8 @@ class Client {
 
 	/**
      * Send request
-     * @param {string} requestUrl 
-     * @param {options} requestOptions 
+     * @param {string} requestUrl
+     * @param {options} requestOptions
      */
 	request(requestUrl, requestOptions) {
 		return new Promise((resolve, reject) => {

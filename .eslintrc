@@ -1,7 +1,7 @@
 {
   "extends": [
     "airbnb",
-    "prettier"
+    "prettier","plugin:jest/recommended"
   ],
   "rules": {
     "no-console": 0

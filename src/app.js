@@ -3,7 +3,7 @@ const url = require('url');
 
 const Router = require('./router');
 const Middleware = require('./middleware');
-const Client = require('./client');
+const download = require('./download');
 
 /**
  * Main Page
@@ -21,27 +21,7 @@ function mainHandler(request, response) {
 function getFileHandler(request, response) {
 	const downloadUrl = url.parse(request.url, true).query.url;
 	if (downloadUrl && typeof downloadUrl === 'string') {
-		new Client()
-			// Proxy Request Headers
-			.setHeaders({
-				...request.headers,
-				host: downloadUrl
-			})
-			.get(downloadUrl)
-			.then((responseDownladStream) => {
-				const fileName = downloadUrl.split('/').reverse()[0] || 'file';
-				// Proxy Response Headers
-				response.setHeaders({
-					...responseDownladStream.headers,
-					'Content-disposition': `attachment; filename='${fileName}'`
-				});
-				// Send DownladStream to response
-				responseDownladStream.pipe(response);
-			})
-			.catch((error) => {
-				console.log(error);
-				response.error(error);
-			});
+		download(downloadUrl, request.headers, response);
 	} else {
 		response.error('Not url in query params');
 	}

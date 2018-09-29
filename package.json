@@ -1,0 +1,29 @@
+{
+	"name": "download-server",
+	"version": "1.0.0",
+	"description": "Download Server",
+	"main": "app.js",
+	"author": "Strelov Ilya",
+	"license": "ISC",
+	"engines": {
+		"node": ">=8"
+	},
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"start": "node ./src/app.js",
+		"prettier": "prettier --config .prettierrc --write ./src/**/*.js",
+		"lint": "eslint --fix ./src"
+	},
+	"pre-commit": [ "prettier", "lint" ],
+	"devDependencies": {
+		"eslint": "^5.6.1",
+		"eslint-config-airbnb": "^17.1.0",
+		"eslint-config-prettier": "^3.1.0",
+		"eslint-plugin-import": "^2.14.0",
+		"eslint-plugin-jsx-a11y": "^6.1.1",
+		"eslint-plugin-prettier": "^2.7.0",
+		"eslint-plugin-react": "^7.11.1",
+		"pre-commit": "^1.2.2",
+		"prettier": "^1.14.3"
+	}
+}

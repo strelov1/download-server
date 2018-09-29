@@ -3,7 +3,8 @@ const fs = require('fs');
 const download = require('../src/download');
 
 const downloadFile = `${__dirname}/downloadFile.tmp`;
-const mockFile = `${__dirname}/../README.md`;
+const downloadMockFile = `${__dirname}/download.mock.file.txt`;
+const existMockFile = `${__dirname}/mock.file.txt`;
 
 describe('Client headers', () => {
 	const fleStream = fs.createWriteStream(downloadFile);
@@ -21,22 +22,21 @@ describe('Client headers', () => {
 });
 
 test('Client download', async () => {
-	const fleStreamDownlaod = fs.createWriteStream(downloadFile);
+	const fleStreamDownlaod = fs.createWriteStream(downloadMockFile);
 	fleStreamDownlaod.headers = {};
 	fleStreamDownlaod.setHeaders = (headers) => {
 		fleStreamDownlaod.headers = headers;
 	};
 
 	download(
-		'https://raw.githubusercontent.com/strelov1/download-server/master/README.md',
+		'https://raw.githubusercontent.com/strelov1/download-server/master/__test__/mock.file.txt',
 		{},
 		fleStreamDownlaod
 	).then(() => {
-		fs.readFile(mockFile, 'utf8', (errMockFile, contentsMockFile) => {
-			fs.readFile(downloadFile, 'utf8', (errDownloadFile, contentsDownloadFile) => {
+		fs.readFile(existMockFile, 'utf8', (errMockFile, contentsMockFile) => {
+			fs.readFile(downloadMockFile, 'utf8', (errDownloadFile, contentsDownloadFile) => {
 				expect(contentsMockFile).toEqual(contentsDownloadFile);
-				fs.unlinkSync(contentsMockFile);
-				fs.unlinkSync(contentsDownloadFile);
+				fs.unlinkSync(downloadMockFile);
 			});
 		});
 	});

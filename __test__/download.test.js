@@ -16,7 +16,7 @@ const reponseStreamMock = (filename) => {
 	return fleStream;
 };
 
-describe('Client headers', () => {
+test('Client headers', async () => {
 	const responseStream = reponseStreamMock(downloadFile);
 	download('http://nodejs.org/dist/index.json', {}, responseStream)
 		.then(() => {
